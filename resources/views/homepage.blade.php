@@ -57,3 +57,25 @@
     </div>
   </div>
 @endsection
+
+@push('scripts')
+  @if ($errors->has('email') || $errors->has('password'))
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Credentials',
+        html: {!! json_encode(implode('<br>', $errors->get('email'))) !!} || {!! json_encode(implode('<br>', $errors->get('password'))) !!},
+        confirmButtonText: 'OK'
+      });
+    </script>
+  @elseif ($errors->any())
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Validation Errors',
+        html: {!! json_encode(implode('<br>', $errors->all())) !!},
+        confirmButtonText: 'OK'
+      });
+    </script>
+  @endif
+@endpush

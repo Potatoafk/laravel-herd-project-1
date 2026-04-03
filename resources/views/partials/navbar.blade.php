@@ -6,7 +6,6 @@
 
       <!-- Nav Links -->
       <div class="flex space-x-6 text-gray-700">
-        <a href="{{ route('feed') }}" class="font-medium hover:text-blue-600">Feed</a>
         <a href="#" class="hover:text-blue-600">Profile</a>
         <a href="#" class="hover:text-red-500">Logout</a>
       </div>

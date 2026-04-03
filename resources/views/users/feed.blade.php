@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+@include('partials.navbar')
   <main class="max-w-2xl mx-auto mt-6 px-4 space-y-6">
 
     <!-- CREATE POST -->

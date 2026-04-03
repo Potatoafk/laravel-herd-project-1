@@ -2,16 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Users extends Model
+class Users extends Authenticatable
 {
-    protected $table = 'users';
-    protected $primaryKey = 'id';
+    use HasFactory, Notifiable;
+
+    protected $table = 'users_table';
+    protected $primaryKey = 'user_id';
     protected $fillable = [
         'first_name',
         'last_name',
         'email',
+        'email_verified_at',
+        'created_at',
         'password',
     ];
+
+    // public function posts()
+    // {
+    //     return $this->hasMany(Posts::class, 'user_id', 'user_id');
+    // }
 }
