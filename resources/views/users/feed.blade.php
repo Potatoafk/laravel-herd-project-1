@@ -2,63 +2,92 @@
 
 @section('content')
 @include('partials.navbar')
-  <main class="max-w-2xl mx-auto mt-6 px-4 space-y-6">
 
-    <!-- CREATE POST -->
-    <div class="bg-white p-4 rounded-lg shadow-sm">
-      <textarea
-        rows="3"
-        placeholder="What's on your mind?"
-        class="w-full border rounded px-3 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-      ></textarea>
+<div class="bg-gray-200 min-h-screen py-8">
+  <main class="max-w-2xl mx-auto space-y-5">
 
-      <div class="flex justify-end mt-3">
-        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-          Post
+    <!-- CREATE POST SECTION -->
+    <div class="bg-white rounded-lg shadow p-4 border border-gray-200">
+        <form action="{{ route('posts.create') }}" method="POST">
+            @csrf
+            <div class="flex items-center space-x-4">
+              <input
+                type="text"
+                placeholder="What's on your mind?"
+                name="content"
+                class="flex-1 bg-gray-100 rounded-lg px-4 py-2 focus:outline-none text-md"
+              >
+              <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-semibold text-sm transition">
+                Post
+              </button>
+            </div>
+        </form>
+
+      <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+        <div class="flex space-x-2">
+          <button class="flex items-center space-x-2 text-gray-600 hover:bg-gray-100 px-3 py-2 rounded-lg text-sm font-medium transition">
+            <span>📷</span>
+            <span>Photo</span>
+          </button>
+          <button class="flex items-center space-x-2 text-gray-600 hover:bg-gray-100 px-3 py-2 rounded-lg text-sm font-medium transition">
+            <span>😊</span>
+            <span>Feeling</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POSTS FEED -->
+    @forelse($posts as $post)
+    <div class="bg-white rounded-lg shadow border border-gray-200 overflow-hidden hover:shadow-md transition">
+      <!-- POST HEADER -->
+      <div class="p-4 flex items-center justify-between border-b border-gray-200">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
+            <span class="text-white font-bold text-sm">{{ strtoupper(substr($post->user->first_name ?? 'U', 0, 1)) }}</span>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-900 text-sm">{{ $post->user->first_name ?? 'Unknown' }} {{ $post->user->last_name ?? '' }}</p>
+            <p class="text-xs text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST CONTENT -->
+      <div class="p-4">
+        <p class="text-gray-800 text-sm leading-relaxed">
+          {{ $post->content }}
+        </p>
+      </div>
+
+      <!-- POST STATS -->
+      <div class="flex items-center justify-between px-4 py-2 text-xs text-gray-500 border-t border-gray-200">
+        <span>👍 0 reactions</span>
+        <div class="space-x-4">
+          <span class="cursor-pointer hover:text-blue-600">0 comments</span>
+          <span class="cursor-pointer hover:text-blue-600">0 shares</span>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="flex items-center border-t border-gray-200">
+        <button class="flex-1 flex items-center justify-center space-x-2 text-gray-600 hover:bg-gray-100 py-2 transition text-sm font-medium">
+          <span>👍</span>
+          <span>Like</span>
+        </button>
+        <button class="flex-1 flex items-center justify-center space-x-2 text-gray-600 hover:bg-gray-100 py-2 transition text-sm font-medium border-l border-gray-200">
+          <span>💬</span>
+          <span>Comment</span>
         </button>
       </div>
     </div>
-
-    <!-- POST CARD -->
-    <div class="bg-white p-4 rounded-lg shadow-sm">
-      <div class="flex items-center mb-3">
-        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
-        <div class="ml-3">
-          <p class="font-semibold">John Doe</p>
-          <p class="text-xs text-gray-500">2 hours ago</p>
-        </div>
-      </div>
-
-      <p class="text-gray-800">
-        Just finished building my first social app UI using Tailwind 🔥
-      </p>
-
-      <div class="flex space-x-6 mt-4 text-sm text-gray-500">
-        <button class="hover:text-blue-600">Like</button>
-        <button class="hover:text-blue-600">Comment</button>
-      </div>
+    @empty
+    <div class="bg-white rounded-lg shadow border border-gray-200 p-8 text-center">
+      <p class="text-gray-500">No posts yet. Be the first to share!</p>
     </div>
-
-    <!-- ANOTHER POST -->
-    <div class="bg-white p-4 rounded-lg shadow-sm">
-      <div class="flex items-center mb-3">
-        <div class="w-10 h-10 rounded-full bg-gray-300"></div>
-        <div class="ml-3">
-          <p class="font-semibold">Jane Smith</p>
-          <p class="text-xs text-gray-500">Yesterday</p>
-        </div>
-      </div>
-
-      <p class="text-gray-800">
-        Keeping things simple > overcomplicating everything 💡
-      </p>
-
-      <div class="flex space-x-6 mt-4 text-sm text-gray-500">
-        <button class="hover:text-blue-600">Like</button>
-        <button class="hover:text-blue-600">Comment</button>
-      </div>
-    </div>
+    @endforelse
 
   </main>
+</div>
 
 @endsection

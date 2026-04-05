@@ -19,6 +19,7 @@
           @csrf
           <input
             type="email"
+            value="{{ old('email') }}"
             name="email"
             placeholder="Email address"
             class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"

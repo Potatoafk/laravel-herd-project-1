@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Posts;
+// use Illuminate\Http\Request;
 
 class FeedController extends Controller
 {
     public function feed() {
-        return view('users.feed');
+        $posts = Posts::with('user')->latest('created_at')->get();
+        return view('users.feed', compact('posts'));
     }
 }

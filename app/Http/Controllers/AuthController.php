@@ -16,7 +16,7 @@ class AuthController extends Controller
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'email' => 'required|email|unique:users_table,email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:8',
         ]);
 
@@ -35,4 +35,9 @@ class AuthController extends Controller
 
         return redirect()->route('homepage')->with('success', 'Account created successfully!');
     }
+
+        public function logout() {
+            auth()->logout();
+            return redirect()->route('homepage')->with('success', 'Logged out successfully!');
+        }
 }

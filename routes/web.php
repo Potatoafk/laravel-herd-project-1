@@ -13,6 +13,9 @@ Route::get('/', [HomeController::class, 'homepage'])->name('homepage');
 // login
 Route::post('/login', [HomeController::class, 'login'])->name('login');
 
+// logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 // create account
 Route::get('/signup', [AuthController::class, 'signup_page'])->name('signup');
@@ -24,6 +27,4 @@ Route::get('/feed', [FeedController::class, 'feed'])->name('feed')->middleware('
 
 
 // posts
-Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store')->middleware('auth');
-Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy')->middleware('auth');
+Route::post('/post', [PostController::class, 'post'])->name('posts.create')->middleware('auth');

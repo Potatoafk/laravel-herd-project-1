@@ -7,31 +7,17 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function create()
+    public function post(Request $request)
     {
-        return view('posts.create');
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'content' => 'required|string|max:5000',
+        $request->validate([
+            'content' => 'required|string|max:255',
         ]);
 
-        $post = Posts::create([
-            'user_id' => auth()->user()->user_id,
-            'content' => $validated['content'],
+        Posts::create([
+            'user_id' => auth()->id(),
+            'content' => $request->input('content'),
         ]);
 
         return redirect()->route('feed')->with('success', 'Post created successfully!');
-    }
-
-    public function destroy(Posts $post)
-    {
-        $this->authorize('delete', $post);
-
-        $post->delete();
-
-        return redirect()->route('feed')->with('success', 'Post deleted successfully!');
     }
 }
