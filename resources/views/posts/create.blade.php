@@ -28,7 +28,7 @@
               name="content"
               rows="6"
               placeholder="Share your thoughts..."
-              class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('content') border-red-500 @enderror"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500 @error('content') border-red-500 @enderror"
             >{{ old('content') }}</textarea>
             @error('content')
               <span class="text-red-500 text-sm mt-1">{{ $message }}</span>

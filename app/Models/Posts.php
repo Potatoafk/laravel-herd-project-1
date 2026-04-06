@@ -20,4 +20,14 @@ class Posts extends Model
     {
         return $this->belongsTo(Users::class, 'user_id', 'user_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comments::class, 'post_id', 'post_id');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Likes::class, 'post_id', 'post_id');
+    }
 }

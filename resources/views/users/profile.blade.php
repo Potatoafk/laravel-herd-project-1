@@ -1,62 +1,68 @@
-@extends('layouts.app')
+@extends('layouts.master')
+@section('title', 'User Profile')
 
-@section('feed')
-<main class="max-w-2xl mx-auto mt-6 px-4 space-y-6">
+@section('content')
+@include('partials.navbar')
 
-  <!-- BACK TO FEED -->
-  <div>
-    <a
-      href="/feed"
-      class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600"
-    >
-      ← Back to Feed
-    </a>
-  </div>
+<div class="bg-gray-200 min-h-screen py-8">
+  <main class="max-w-2xl mx-auto space-y-5">
 
-  <!-- PROFILE HEADER -->
-  <div class="bg-white p-6 rounded-lg shadow-sm">
-    <div class="flex items-center">
-      <!-- Avatar -->
-      <div class="w-20 h-20 rounded-full bg-gray-300"></div>
+    <!-- BACK TO FEED -->
+    <div>
+      <a href="{{ route('feed') }}" class="inline-flex items-center text-sm text-gray-600 hover:text-blue-600">
+        ← Back to Feed
+      </a>
+    </div>
 
-      <!-- User Info -->
-      <div class="ml-5">
-        <h2 class="text-xl font-semibold">John Doe</h2>
-        <p class="text-gray-600 text-sm">Web dev • building cool stuff</p>
-        <p class="text-xs text-gray-500 mt-1">Joined January 2026</p>
+    <!-- PROFILE HEADER -->
+    <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
+      <div class="flex items-center space-x-5">
+        <!-- Avatar -->
+        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
+          <span class="text-white font-bold text-3xl">{{ strtoupper(substr(auth()->user()->first_name ?? 'U', 0, 1)) }}</span>
+        </div>
+
+        <!-- User Info -->
+        <div>
+          <h2 class="text-2xl font-semibold text-gray-900">{{ auth()->user()->first_name ?? 'User' }} {{ auth()->user()->last_name ?? '' }}</h2>
+          <p class="text-gray-600 text-sm">{{ auth()->user()->email }}</p>
+          <p class="text-xs text-gray-500 mt-1">Member since {{ auth()->user()->created_at->format('F d Y') }}</p>
+        </div>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="mt-4 flex space-x-3">
+        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 font-semibold transition">
+          Edit Profile
+        </button>
+        <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 font-semibold transition">
+          Delete Account
+        </button>
       </div>
     </div>
 
-    <!-- ACTION BUTTONS -->
-    <div class="mt-4 flex space-x-3">
-      <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-        Edit Profile
-      </button>
+    <!-- USER POSTS -->
+    <div class="space-y-4">
+      <h3 class="text-gray-900 font-semibold text-lg">My Posts ({{ $posts->count() }})</h3>
+
+      @forelse($posts as $post)
+        <!-- POST -->
+        <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+          <p class="text-gray-800 text-sm leading-relaxed">
+            {{ $post->content }}
+          </p>
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-200 text-xs text-gray-500">
+            <span>{{ $post->created_at->diffForHumans() }}</span>
+            <span><i class="bi bi-hand-thumbs-up"></i> {{ $post->likes->count() }} • <i class="bi bi-chat"></i> {{ $post->comments->count() }}</span>
+          </div>
+        </div>
+      @empty
+        <div class="bg-white p-8 rounded-lg shadow border border-gray-200 text-center">
+          <p class="text-gray-500">No posts yet. Start sharing!</p>
+        </div>
+      @endforelse
     </div>
-  </div>
-
-  <!-- USER POSTS -->
-  <div class="space-y-4">
-    <h3 class="text-gray-700 font-semibold">Posts</h3>
-
-    <!-- POST -->
-    <div class="bg-white p-4 rounded-lg shadow-sm">
-      <p class="text-gray-800">
-        First post on my new social app 🚀
-      </p>
-      <p class="text-xs text-gray-500 mt-2">2 hours ago</p>
-    </div>
-
-    <!-- POST -->
-    <div class="bg-white p-4 rounded-lg shadow-sm">
-      <p class="text-gray-800">
-        Keeping things simple and clean.
-      </p>
-      <p class="text-xs text-gray-500 mt-2">Yesterday</p>
-    </div>
-  </div>
-
-</main>
-
+  </main>
+</div>
 
 @endsection

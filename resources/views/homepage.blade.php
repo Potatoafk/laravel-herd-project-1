@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'LognPost')
+@section('title', 'Welcome to Pisbuk')
 @section('content')
   <div class="min-h-screen flex items-center justify-center">
     <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-10 px-6">
@@ -22,14 +22,14 @@
             value="{{ old('email') }}"
             name="email"
             placeholder="Email address"
-            class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500 text-gray-900"
           />
 
           <input
             type="password"
             name="password"
             placeholder="Password"
-            class="w-full px-4 py-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-500 text-gray-900"
           />
 
           <button

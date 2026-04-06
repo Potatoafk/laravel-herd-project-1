@@ -8,7 +8,7 @@ use App\Models\Posts;
 class FeedController extends Controller
 {
     public function feed() {
-        $posts = Posts::with('user')->latest('created_at')->get();
+        $posts = Posts::with('user', 'comments', 'likes')->latest('created_at')->get();
         return view('users.feed', compact('posts'));
     }
 }
