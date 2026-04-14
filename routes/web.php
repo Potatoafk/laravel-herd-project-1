@@ -5,7 +5,9 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikesController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FriendController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,3 +46,22 @@ Route::post('/post/{postId}/unlike', [LikesController::class, 'unlike'])->name('
 // comments
 Route::get('/post/{postId}/comment', [CommentController::class, 'view'])->name('comments.view')->middleware('auth');
 Route::post('/post/{postId}/comment', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+
+// messages
+Route::get('/messages', [MessageController::class, 'index'])->name('messages.index')->middleware('auth');
+Route::post('/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
+Route::delete('/messages/{messageId}', [MessageController::class, 'delete'])->name('messages.delete')->middleware('auth');
+
+
+// friends
+Route::get('/friends', [FriendController::class, 'index'])->name('friends.index')->middleware('auth');
+Route::post('/friends', [FriendController::class, 'store'])->name('friends.store')->middleware('auth');
+Route::post('/friends/{friendshipId}/accept', [FriendController::class, 'accept'])->name('friends.accept')->middleware('auth');
+Route::post('/friends/{friendshipId}/decline', [FriendController::class, 'decline'])->name('friends.decline')->middleware('auth');
+Route::delete('/friends/{friendshipId}', [FriendController::class, 'destroy'])->name('friends.destroy')->middleware('auth');
+
+
+// catch-all route for 404
+Route::fallback(function () {
+    return view('404');
+});

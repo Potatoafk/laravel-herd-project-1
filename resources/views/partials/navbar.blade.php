@@ -6,8 +6,26 @@
 
       <!-- Nav Links -->
       <div class="flex space-x-6 text-gray-700 items-center">
+        <button class="hover:text-pink-600 transition">
+            <a href="{{ route('feed') }}">
+                <i class="bi bi-house"></i>
+            </a>
+        </button>
+        <button class="hover:text-green-600 transition">
+            <a href="{{ route('friends.index') }}">
+                <i class="bi bi-people"></i>
+            </a>
+        </button>
+        <button class="hover:text-purple-600 transition">
+            <a href="{{ route('messages.index') }}">
+                <i class="bi bi-chat"></i>
+            </a>
+        </button>
+        <button class="hover:text-yellow-600 transition">
+            <i class="bi bi-bell"></i>
+        </button>
         <button onclick="profile_modal.showModal()" class="hover:text-blue-600 transition">
-            <i class="bi bi-person-fill text-lg"></i>
+            <i class="bi bi-person"></i>
         </button>
 
         <!-- Profile Modal - DaisyUI Light Colored -->

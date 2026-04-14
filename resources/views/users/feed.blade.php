@@ -47,7 +47,9 @@
             <span class="text-white font-bold text-sm">{{ strtoupper(substr($post->user->first_name ?? 'U', 0, 1)) }}</span>
           </div>
           <div>
-            <p class="font-semibold text-gray-900 text-sm">{{ $post->user->first_name ?? 'Unknown' }} {{ $post->user->last_name ?? '' }}</p>
+            <a href="www.facebook.com/{{ $post->user->user_id }}" class="hover:underline">
+                <p class="font-semibold text-gray-900 text-sm">{{ $post->user->first_name ?? 'Unknown' }} {{ $post->user->last_name ?? '' }}</p>
+            </a>
             <p class="text-xs text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
           </div>
         </div>

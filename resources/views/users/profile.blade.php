@@ -18,7 +18,7 @@
     <div class="bg-white p-6 rounded-lg shadow border border-gray-200">
       <div class="flex items-center space-x-5">
         <!-- Avatar -->
-        <div class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center flex-shrink-0">
+        <div class="w-20 h-20 rounded-full bg-linear-to-br from-blue-400 to-blue-600 flex items-center justify-center shrink-0">
           <span class="text-white font-bold text-3xl">{{ strtoupper(substr(auth()->user()->first_name ?? 'U', 0, 1)) }}</span>
         </div>
 
@@ -28,7 +28,7 @@
           <p class="text-gray-600 text-sm">{{ auth()->user()->email }}</p>
           <p class="text-xs text-gray-500 mt-1">Member since {{ auth()->user()->created_at->format('F d Y') }}</p>
         </div>
-      </div>
+      </div>7
 
       <!-- ACTION BUTTONS -->
       <div class="mt-4 flex space-x-3">
